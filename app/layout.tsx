@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import SyncUser from "@/providers/syncUser";
 
 const monaSans = Mona_Sans({
   variable: "--font-mona-sans",
@@ -31,7 +34,17 @@ export default function RootLayout({
             variables: { colorPrimary: "#28E5A9" },
           }}
         >
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SyncUser>
+              {children}
+              <Toaster />
+            </SyncUser>
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
