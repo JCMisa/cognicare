@@ -43,7 +43,7 @@ const menuItems = {
       icon: <LayoutDashboard className="w-4 h-4 mr-2" />,
     },
     {
-      title: "My Checkups",
+      title: "My Doctors",
       url: "/my-checkups",
       icon: <StethoscopeIcon className="w-4 h-4 mr-2" />,
     },

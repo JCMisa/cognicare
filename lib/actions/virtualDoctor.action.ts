@@ -3,6 +3,39 @@
 import { db } from "@/config/db";
 import { VirtualDoctors } from "@/config/schema";
 import { parseStringify } from "../utils";
+import { desc, eq } from "drizzle-orm";
+
+export const getAllDoctors = async () => {
+  try {
+    const data = await db
+      .select()
+      .from(VirtualDoctors)
+      .orderBy(desc(VirtualDoctors.createdAt));
+
+    if (data) {
+      return parseStringify({ data: data });
+    }
+    return parseStringify({ data: null });
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getAllUserDoctors = async (userId: string) => {
+  try {
+    const data = await db
+      .select()
+      .from(VirtualDoctors)
+      .where(eq(VirtualDoctors.userId, userId));
+
+    if (data) {
+      return parseStringify({ data: data });
+    }
+    return parseStringify({ data: null });
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 export const createDoctor = async (
   doctorId: string,
