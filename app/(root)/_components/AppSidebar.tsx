@@ -17,6 +17,7 @@ import {
   UserCog,
   ScrollText,
   LineChart,
+  StethoscopeIcon,
 } from "lucide-react";
 
 import {
@@ -33,7 +34,6 @@ import {
 import LogoFull from "@/components/custom/LogoFull";
 import Image from "next/image";
 import { SearchForm } from "./SearchForm";
-import { cn } from "@/lib/utils";
 
 const menuItems = {
   patient: [
@@ -43,14 +43,14 @@ const menuItems = {
       icon: <LayoutDashboard className="w-4 h-4 mr-2" />,
     },
     {
+      title: "My Checkups",
+      url: "/my-checkups",
+      icon: <StethoscopeIcon className="w-4 h-4 mr-2" />,
+    },
+    {
       title: "My Profile",
       url: "/profile",
       icon: <Users className="w-4 h-4 mr-2" />,
-    },
-    {
-      title: "Portfolio",
-      url: "/portfolio",
-      icon: <ScrollText className="w-4 h-4 mr-2" />,
     },
     {
       title: "Interview Requests",
@@ -99,15 +99,25 @@ const menuItems = {
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   userRole?: "patient" | "admin";
+  userId?: string;
 }
 
 export function AppSidebar({
   userRole = "patient",
+  userId,
   ...props
 }: AppSidebarProps) {
   const pathname = usePathname();
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
+
+  const getItemUrl = (url: string) => {
+    if (url.includes("my-checkups") && userId) {
+      return `${url}/${userId}`;
+    }
+    return url;
+  };
+
   const items = menuItems[userRole] || [];
 
   return (
@@ -142,11 +152,14 @@ export function AppSidebar({
                 <SidebarMenuItem key={item.url}>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname === item.url}
+                    isActive={pathname.startsWith(item.url)}
                     tooltip={isCollapsed ? item.title : undefined}
                   >
-                    <Link href={item.url} className="flex items-center">
-                      {pathname === item.url ? (
+                    <Link
+                      href={getItemUrl(item.url)}
+                      className="flex items-center"
+                    >
+                      {pathname.startsWith(item.url) ? (
                         <div className="text-primary">{item.icon}</div>
                       ) : (
                         item.icon
