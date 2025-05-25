@@ -2,11 +2,13 @@
 
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const SyncUser = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser();
+
+  const [hasSynced, setHasSynced] = useState(false);
 
   const createNewUser = async () => {
     try {
@@ -24,6 +26,7 @@ const SyncUser = ({ children }: { children: React.ReactNode }) => {
 
       if (result.data) {
         console.log("User sync successfully: ", result.data);
+        setHasSynced(true);
       }
     } catch (error) {
       console.log("User sync internal error: ", error);
@@ -32,8 +35,10 @@ const SyncUser = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    user && createNewUser();
-  }, [user]);
+    if (user && !hasSynced) {
+      createNewUser();
+    }
+  }, [user, hasSynced]);
 
   return <>{children}</>;
 };
