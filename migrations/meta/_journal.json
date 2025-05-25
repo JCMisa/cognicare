@@ -8,6 +8,13 @@
       "when": 1748088709326,
       "tag": "0000_jazzy_silver_centurion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748170245232,
+      "tag": "0001_mature_grandmaster",
+      "breakpoints": true
     }
   ]
 }

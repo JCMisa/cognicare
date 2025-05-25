@@ -13,8 +13,16 @@ import SessionTitle from "./_components/SessionTitle";
 import SessionTopicDescription from "./_components/SessionTopicDescription";
 import SelectOption from "./_components/SelectOption";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
+import { toast } from "sonner";
+import { createDoctor } from "@/lib/actions/virtualDoctor.action";
+import { v4 as uuidv4 } from "uuid";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const NewCheckupSession = () => {
+  const { user } = useUser();
+  const router = useRouter();
+
   const stepperOptions = [
     {
       id: 1,
@@ -60,8 +68,31 @@ const NewCheckupSession = () => {
     return false;
   };
 
-  const generateCheckupSession = async () => {
+  const createVirtualDoctor = async () => {
     console.log("User Input: ", userCourseInput);
+    setLoading(true);
+    try {
+      const doctorId = uuidv4();
+      const result = await createDoctor(
+        doctorId,
+        user?.id as string,
+        userCourseInput.title || "",
+        userCourseInput.topic || "",
+        userCourseInput.style || "",
+        userCourseInput.voice || "",
+        userCourseInput.duration || ""
+      );
+
+      if (result !== null) {
+        toast.success("Virtual doctor created successfully");
+        router.push(`/session/${doctorId}`);
+      }
+    } catch (error) {
+      console.log("create doctor error: ", error);
+      toast.error("Failed to create your virtual doctor");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -153,7 +184,7 @@ const NewCheckupSession = () => {
             )}
             {activeIndex === 2 && (
               <Button
-                onClick={() => generateCheckupSession()}
+                onClick={() => createVirtualDoctor()}
                 className="min-w-52"
                 disabled={checkStatus()}
               >

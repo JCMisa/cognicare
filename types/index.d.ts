@@ -15,7 +15,18 @@ declare interface VirtualDoctorType {
   id: number;
   doctorId: string;
   userId: string;
-  name: string;
+  title: string;
+  topic: string;
+  style: string;
+  voice: string;
+  duration: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+declare interface CreateVirtualDoctorType {
+  doctorId: string;
+  userId: string;
   title: string;
   topic: string;
   style: string;

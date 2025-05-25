@@ -43,7 +43,6 @@ export const VirtualDoctors = pgTable(
       .references(() => Users.userId)
       .notNull(),
 
-    name: varchar({ length: 255 }),
     title: varchar({ length: 255 }), // title ng checkup
     topic: text("topic"), // topic na paguusapan
     style: varchar({ length: 255 }), // tono ng boses ni ai formal or casual
