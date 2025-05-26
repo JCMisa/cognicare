@@ -6,18 +6,15 @@ import Link from "next/link";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
-  Users,
-  Briefcase,
-  FileText,
   Settings,
   Bell,
   MessageSquare,
   BadgeCheck,
-  Building2,
   UserCog,
-  ScrollText,
   LineChart,
   StethoscopeIcon,
+  DollarSignIcon,
+  UserIcon,
 } from "lucide-react";
 
 import {
@@ -50,12 +47,12 @@ const menuItems = {
     {
       title: "My Profile",
       url: "/profile",
-      icon: <Users className="w-4 h-4 mr-2" />,
+      icon: <UserIcon className="w-4 h-4 mr-2" />,
     },
     {
-      title: "Interview Requests",
-      url: "/interview-requests",
-      icon: <FileText className="w-4 h-4 mr-2" />,
+      title: "Subscription",
+      url: "/subscription",
+      icon: <DollarSignIcon className="w-4 h-4 mr-2" />,
     },
     {
       title: "Messages",

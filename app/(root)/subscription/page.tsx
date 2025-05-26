@@ -5,17 +5,17 @@ import { dark } from "@clerk/themes";
 
 const SubscriptionPage = () => {
   return (
-    <main className="relative min-h-screen w-full items-center justify-center overflow-hidden">
+    <main className="h-full w-full items-center justify-center overflow-hidden">
       <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(100%_100%_at_center,white,transparent)] absolute inset-0 -z-10"
+          "[mask-image:radial-gradient(100%_100%_at_center,white,transparent)] absolute inset-0 -z-5"
         )}
       />
 
       {/* Add the glow effect div */}
       <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-primary/30 via-primary/5 to-transparent blur-[100px] -z-5"></div>
 
-      <div className="py-20 md:px-20 lg:px-20">
+      <div className="py-20 md:px-20 lg:px-20 z-10 relative w-full">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
             <h3 className="text-primary" data-aos="fade-down">
