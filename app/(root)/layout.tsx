@@ -56,7 +56,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
             <ModeToggle bg="transparent" />
           </div>
           <div className="flex items-center gap-2">
-            <UserButton />
+            {clerkUser && <UserButton />}
             <div className="flex flex-col">
               <p className="text-sm font-medium">
                 {user?.firstName} {user?.lastName}

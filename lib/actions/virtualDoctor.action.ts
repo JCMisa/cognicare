@@ -37,6 +37,22 @@ export const getAllUserDoctors = async (userId: string) => {
   }
 };
 
+export const getDoctorByDoctorId = async (doctorId: string) => {
+  try {
+    const data = await db
+      .select()
+      .from(VirtualDoctors)
+      .where(eq(VirtualDoctors.doctorId, doctorId));
+
+    if (data) {
+      return parseStringify({ data: data[0] });
+    }
+    return parseStringify({ data: null });
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const createDoctor = async (
   doctorId: string,
   userId: string,

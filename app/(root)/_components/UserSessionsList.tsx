@@ -2,7 +2,10 @@ import React from "react";
 import UserSessionCard from "./UserSessionCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getCurrentUser } from "@/lib/actions/user.action";
+import {
+  getCurrentUser,
+  hasSubscriptionPermission,
+} from "@/lib/actions/user.action";
 import { getAllUserDoctors } from "@/lib/actions/virtualDoctor.action";
 
 const UserSessionsList = async () => {
@@ -17,6 +20,8 @@ const UserSessionsList = async () => {
     userDoctorsList = userDoctors.data;
   }
 
+  const hasAccess = await hasSubscriptionPermission();
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -27,9 +32,15 @@ const UserSessionsList = async () => {
           </span>
         </p>
 
-        <Button asChild>
-          <Link href={"/session/new"}>+ New Session</Link>
-        </Button>
+        {hasAccess ? (
+          <Button asChild>
+            <Link href={"/session/new"}>+ New Session</Link>
+          </Button>
+        ) : (
+          <Button asChild variant={"destructive"}>
+            <Link href={"/subscription"}>Upgrade Plan</Link>
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-col gap-4 w-full">

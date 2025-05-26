@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ClockIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -19,11 +18,10 @@ const UserSessionCard = ({ virtualDoctor }: UserSessionCardProps) => {
         </p>
       </div>
       <div className="flex justify-between">
-        <div className="flex items-center gap-2">
+        <div className="hidden flex-col items-start xl:flex xl:flex-row xl:items-center gap-2">
           Duration:
-          <div className="text-muted-foreground flex items-center gap-1">
-            <ClockIcon className="size-5" /> {virtualDoctor.duration || 0}{" "}
-            minutes
+          <div className="text-muted-foreground flex items-center gap-1 text-xs">
+            {virtualDoctor.duration || 0} minutes
           </div>
         </div>
         <Button asChild variant={"outline"} size={"sm"}>

@@ -6,7 +6,7 @@ import {
   LoaderCircleIcon,
   SettingsIcon,
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserInputContext } from "../_context/UserInputContext";
 import { Button } from "@/components/ui/button";
 import SessionTitle from "./_components/SessionTitle";
@@ -17,11 +17,31 @@ import { toast } from "sonner";
 import { createDoctor } from "@/lib/actions/virtualDoctor.action";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
+import { hasSubscriptionPermission } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
 
 const NewCheckupSession = () => {
   const { user } = useUser();
   const router = useRouter();
+
+  // check if user can create a new session based on plan
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  useEffect(() => {
+    const checkIfUserHasPermission = async () => {
+      if (user) {
+        const canCreateSession = await hasSubscriptionPermission();
+        setHasPermission(!!canCreateSession);
+      }
+    };
+
+    checkIfUserHasPermission();
+  }, [user]);
+
+  useEffect(() => {
+    if (hasPermission === false) {
+      router.replace("/subscription");
+    }
+  }, [hasPermission, router]);
 
   const stepperOptions = [
     {

@@ -44,3 +44,8 @@ declare interface SessionType {
   createdAt: Date;
   updatedAt: Date;
 }
+
+declare interface SavedMessage {
+  role: "user" | "system" | "assistant";
+  content: string;
+}
