@@ -33,7 +33,6 @@ const SessionDoctor = async ({ params }: SessionDoctorProps) => {
                   : "/empty-img.png"
               }
               loading="lazy"
-              placeholder="blur"
               blurDataURL="/blur.jpg"
               alt="doc-logo"
               width={35}

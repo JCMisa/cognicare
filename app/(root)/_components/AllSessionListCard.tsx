@@ -8,7 +8,6 @@ const AllSessionListCard = () => {
         alt="sample"
         src="/empty-img.png"
         loading="lazy"
-        placeholder="blur"
         blurDataURL="/blur.jpg"
         width={1000}
         height={1000}

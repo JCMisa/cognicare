@@ -12,7 +12,6 @@ const SignInPage = () => {
             alt="sample"
             src="/empty-img.png"
             loading="lazy"
-            placeholder="blur"
             blurDataURL="/blur.jpg"
             width={1000}
             height={1000}
@@ -25,7 +24,6 @@ const SignInPage = () => {
               <Image
                 src="/logo.svg"
                 loading="lazy"
-                placeholder="blur"
                 blurDataURL="/blur.jpg"
                 alt="logo"
                 width="50"
@@ -57,7 +55,6 @@ const SignInPage = () => {
                 <Image
                   src="/logo.svg"
                   loading="lazy"
-                  placeholder="blur"
                   blurDataURL="/blur.jpg"
                   alt="logo"
                   width={1000}

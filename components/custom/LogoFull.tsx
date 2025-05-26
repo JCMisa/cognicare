@@ -16,7 +16,6 @@ const LogoFull = ({
       <Image
         src="/logo.svg"
         loading="lazy"
-        placeholder="blur"
         blurDataURL="/blur.jpg"
         alt="logo"
         width={width}

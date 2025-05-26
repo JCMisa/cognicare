@@ -148,7 +148,6 @@ const VirtualDoctorComponent = ({
                 width={150}
                 height={150}
                 loading="lazy"
-                placeholder="blur"
                 blurDataURL="/blur.jpg"
                 className="max-sm:w-fit"
               />
@@ -179,7 +178,6 @@ const VirtualDoctorComponent = ({
               width={130}
               height={130}
               loading="lazy"
-              placeholder="blur"
               blurDataURL="/blur.jpg"
               className="rounded-lg"
             />

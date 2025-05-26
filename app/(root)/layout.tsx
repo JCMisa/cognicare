@@ -4,7 +4,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/config/db";
@@ -13,6 +13,7 @@ import { eq } from "drizzle-orm";
 import { UserButton } from "@clerk/nextjs";
 import ModeToggle from "@/components/ModeToggle";
 import { AppSidebar } from "./_components/AppSidebar";
+import Image from "next/image";
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const clerkUser = await currentUser();
@@ -56,7 +57,20 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
             <ModeToggle bg="transparent" />
           </div>
           <div className="flex items-center gap-2">
-            {clerkUser && <UserButton />}
+            <Suspense
+              fallback={
+                <Image
+                  src={user?.imageUrl || "/empty-img.png"}
+                  loading="lazy"
+                  blurDataURL="/blur.jpg"
+                  alt="profile"
+                  width="50"
+                  height="40"
+                />
+              }
+            >
+              <UserButton />
+            </Suspense>
             <div className="flex flex-col">
               <p className="text-sm font-medium">
                 {user?.firstName} {user?.lastName}

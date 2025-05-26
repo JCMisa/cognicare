@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import ModeToggle from "../ModeToggle";
 import LogoFull from "./LogoFull";
-import UserButtonClient from "./UserButtonClient";
+import Image from "next/image";
 
 const HomeNavbar = async ({ user }: { user: UserType }) => {
   return (
@@ -15,7 +15,20 @@ const HomeNavbar = async ({ user }: { user: UserType }) => {
         <ModeToggle bg="transparent" />
         {user ? (
           <div className="flex items-center gap-2">
-            <UserButtonClient />
+            <Suspense
+              fallback={
+                <Image
+                  src={user?.imageUrl || "/empty-img.png"}
+                  loading="lazy"
+                  blurDataURL="/blur.jpg"
+                  alt="profile"
+                  width="50"
+                  height="40"
+                />
+              }
+            >
+              <UserButton />
+            </Suspense>
             <div className="flex flex-col">
               <p>
                 {user.firstName || "John Carlo"} {user.lastName || "Misa"}
